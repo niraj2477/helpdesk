@@ -91,7 +91,7 @@
       <span v-if="bcc">{{ bcc }}</span>
     </div>
     <div class="border-0 border-t my-3 border-outline-gray-modals" />
-    <EmailContent :content="content" />
+    <EmailContent :content="sanitizedContent" />
     <div class="flex flex-wrap gap-2">
       <AttachmentItem
         v-for="a in attachments"
@@ -147,7 +147,16 @@ const {
 const emit = defineEmits(["reply"]);
 
 const auth = storeToRefs(useAuthStore());
-
+const sanitizedContent = computed(() => {
+  if (!content) return content;
+  // Create a temporary div to parse HTML
+  const div = document.createElement("div");
+  div.innerHTML = content;
+  // Remove all style attributes
+  const elementsWithStyle = div.querySelectorAll("[style]");
+  elementsWithStyle.forEach((el) => el.removeAttribute("style"));
+  return div.innerHTML;
+});
 const { isMobileView } = useScreenSize();
 
 const showSplitModal = ref(false);

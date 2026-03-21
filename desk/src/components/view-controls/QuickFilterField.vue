@@ -22,7 +22,7 @@
     :doctype="filter.options"
     :placeholder="filter.label"
     @change="(data) => updateFilter(filter, data)"
-    class="w-44 [&_button]:border-none"
+    class="w-44"
   />
   <component
     v-else-if="['Date', 'Datetime'].includes(filter.type)"
