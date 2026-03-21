@@ -200,6 +200,16 @@ watch(iframeRef, (iframe) => {
       let theme = document.documentElement.getAttribute("data-theme");
       parent.setAttribute("data-theme", theme);
 
+      const themeObserver = new MutationObserver(() => {
+        const updatedTheme =
+          document.documentElement.getAttribute("data-theme");
+        parent.setAttribute("data-theme", updatedTheme);
+      });
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+
       const font = getFontFamily(_content.value);
       if (font) emailContent.classList.add(font);
 
