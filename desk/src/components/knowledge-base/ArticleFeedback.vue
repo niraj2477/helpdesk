@@ -1,10 +1,12 @@
 <template>
-  <div class="flex items-center justify-between mb-8 p-4 rounded-lg bg-gray-50">
+  <div
+    class="flex items-center justify-between mb-8 p-4 rounded-lg bg-surface-menu-bar"
+  >
     <!-- Feedback Section -->
     <div>
       <!-- was this article helpful? -->
       <div class="flex flex-col gap-2">
-        <span class="text-gray-800 text-sm !text-[14px]">{{
+        <span class="text-ink-gray-8 text-sm !text-[14px]">{{
           __("Was this article Helpful?")
         }}</span>
 

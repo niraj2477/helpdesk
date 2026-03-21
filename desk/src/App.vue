@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { Dialogs } from "@/components/dialogs";
 import { useConfigStore } from "@/stores/config";
-import { FrappeUIProvider, toast, setConfig } from "frappe-ui";
+import { FrappeUIProvider, toast, setConfig, useTheme } from "frappe-ui";
 import { computed, defineAsyncComponent, h, onMounted, onUnmounted } from "vue";
 import Wifi from "~icons/lucide/wifi";
 import WifiOff from "~icons/lucide/wifi-off";
@@ -40,7 +40,16 @@ onMounted(() => {
   !isCustomerPortal.value && setConfig("localTimezone", window.timezone?.user);
   setConfig("systemTimezone", window.timezone?.system || null);
 });
+const { setTheme } = useTheme();
 
+// Initialize theme from localStorage
+const savedTheme = localStorage.getItem("desk_theme") || "Light";
+if (savedTheme === "Dark") {
+  setTheme("dark");
+}
+{
+  setTheme("light");
+}
 const AgentPortalRoot = defineAsyncComponent(
   () => import("@/pages/desk/AgentRoot.vue")
 );

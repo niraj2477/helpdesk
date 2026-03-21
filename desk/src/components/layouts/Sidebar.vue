@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex select-none flex-col border-r border-gray-200 bg-gray-50 text-base duration-300 ease-in-out"
+    class="flex select-none flex-col border-r border-outline-gray-modals bg-surface-menu-bar text-base duration-300 ease-in-out"
     :style="{
       'min-width': width,
       'max-width': width,
@@ -18,7 +18,7 @@
       class="mt-1.5"
     >
       <template #right>
-        <span class="flex items-center gap-0.5 font-medium text-gray-600">
+        <span class="flex items-center gap-0.5 font-medium text-ink-gray-5">
           <component :is="device.modifierIcon" class="h-3 w-3" />
           <span>K</span>
         </span>
@@ -183,7 +183,7 @@ import { useNotificationStore } from "@/stores/notification";
 import { useSidebarStore } from "@/stores/sidebar";
 import { capture } from "@/telemetry";
 import { isCustomerPortal } from "@/utils";
-import { call } from "frappe-ui";
+import { call, useTheme } from "frappe-ui";
 import {
   GettingStartedBanner,
   HelpModal,
@@ -245,6 +245,34 @@ const { pinnedViews, publicViews } = useView();
 
 const isFCSite = ref(window.is_fc_site);
 
+// Theme management
+const { setTheme } = useTheme();
+const currentTheme = ref(localStorage.getItem("desk_theme") || "Light");
+
+const updateTheme = (theme: string) => {
+  currentTheme.value = theme;
+  localStorage.setItem("desk_theme", theme);
+
+  if (theme === "Dark") {
+    setTheme("dark");
+  } else {
+    setTheme("light");
+  }
+};
+
+const toggleTheme = () => {
+  const themes = ["Light", "Dark"];
+  const currentIndex = themes.indexOf(currentTheme.value);
+  const nextTheme = themes[(currentIndex + 1) % themes.length];
+  updateTheme(nextTheme);
+};
+
+// Initialize theme on mount
+onMounted(() => {
+  const savedTheme = localStorage.getItem("desk_theme") || "Light";
+  updateTheme(savedTheme);
+});
+
 const allViews = computed(() => {
   let items = isCustomerPortal.value
     ? customerPortalSidebarOptions
@@ -302,6 +330,11 @@ function parseViews(views) {
 
 const customerPortalDropdown = computed(() => [
   {
+    label: __("Change Theme"),
+    icon: currentTheme.value === "Dark" ? "moon" : "sun",
+    onClick: toggleTheme,
+  },
+  {
     label: __("Log out"),
     icon: "log-out",
     onClick: () => authStore.logout(),
@@ -340,6 +373,11 @@ const agentPortalDropdown = computed(() => [
     label: __("Shortcuts"),
     icon: h(LucideKeyboard),
     onClick: () => (showShortcutsModal.value = true),
+  },
+  {
+    label: __("Change Theme"),
+    icon: currentTheme.value === "Dark" ? "moon" : "sun",
+    onClick: toggleTheme,
   },
   {
     label: __("Settings"),

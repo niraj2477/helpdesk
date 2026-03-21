@@ -1,25 +1,25 @@
 <template>
   <div class="flex-col text-base flex-1" ref="commentBoxRef">
     <div class="mb-1 ml-0.5 flex items-center justify-between">
-      <div class="text-gray-600 flex items-center gap-2">
+      <div class="text-ink-gray-5 flex items-center gap-2">
         <Avatar
           size="md"
           :label="commenter"
           :image="getUser(commentedBy).user_image"
         />
         <p>
-          <span class="font-medium text-gray-800">
+          <span class="font-medium text-ink-gray-8">
             {{ commenter }}
           </span>
           <span> {{ __(" added a") }}</span>
-          <span class="max-w-xs truncate font-medium text-gray-800">
+          <span class="max-w-xs truncate font-medium text-ink-gray-8">
             {{ __(" comment") }}
           </span>
         </p>
       </div>
       <div class="flex items-center gap-1">
         <Tooltip :text="dateFormat(creation, dateTooltipFormat)">
-          <span class="pl-0.5 text-sm text-gray-600">
+          <span class="pl-0.5 text-sm text-ink-gray-5">
             {{ timeAgo(creation) }}
           </span>
         </Tooltip>
@@ -31,7 +31,7 @@
           >
             <Button
               icon="more-horizontal"
-              class="text-gray-600"
+              class="text-ink-gray-5"
               variant="ghost"
             />
           </Dropdown>
@@ -40,7 +40,7 @@
     </div>
     <div
       :id="`comment-${name}`"
-      class="rounded bg-gray-50 transition-colors px-4 py-3"
+      class="rounded bg-surface-menu-bar transition-colors px-4 py-3 dark:border dark:border-outline-gray-2"
     >
       <TextEditor
         ref="editorRef"
@@ -133,7 +133,7 @@
               class="flex items-center gap-1 px-2 py-1 rounded-full text-sm transition-colors"
               :class="
                 reaction.current_user_reacted
-                  ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                  ? 'bg-surface-blue-2 text-blue-700 hover:bg-blue-200'
                   : 'bg-surface-gray-3 text-ink-gray-6 hover:bg-surface-gray-4'
               "
               v-if="reaction.count !== 0"
