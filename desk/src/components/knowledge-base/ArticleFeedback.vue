@@ -10,7 +10,7 @@
           __("Was this article Helpful?")
         }}</span>
 
-        <div class="flex gap-1 text-gray-600">
+        <div class="flex gap-1 text-ink-gray-5">
           <span class="text-sm">
             {{ __("If your issue isn't resolved, raise a support ticket") }}
           </span>

@@ -19,7 +19,7 @@
 
               <template #body-main>
                 <div
-                  class="text-sm text-ink-gray-6 p-2 bg-white rounded-md max-w-98 whitespace-pre-wrap leading-5"
+                  class="text-sm text-ink-gray-6 p-2 bg-surface-white rounded-md max-w-98 whitespace-pre-wrap leading-5"
                 >
                   <span class="text-p-base">
                     {{
@@ -29,13 +29,13 @@
                   <ul class="list-disc pl-4 mt-1 space-y-1">
                     <li>
                       {{ __("Ticket must be Open or Paused.") }}
-                      <code class="bg-gray-100 rounded-md px-1 py-0.5">
+                      <code class="bg-surface-gray-2 rounded-md px-1 py-0.5">
                         {{ __("status_category in ['Open', 'Paused']") }}</code
                       >
                     </li>
                     <li>
                       {{ __("Ticket must not already be merged.") }}
-                      <code class="bg-gray-100 rounded-md px-1 py-0.5">
+                      <code class="bg-surface-gray-2 rounded-md px-1 py-0.5">
                         {{ __("is_merged === 0") }}</code
                       >
                     </li>
